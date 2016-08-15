@@ -1,0 +1,2 @@
+# hexConfig
+hex-tool

@@ -32,9 +32,24 @@
 // hexConfig.exe -i inFile.hex -o outFile9600.hex --BAUD=9600
 // hexConfig.exe -i inFile.hex -o outFile19200.hex --BAUD=19200
 // Другие параметры:
+// hexConfig.exe -i inFile.hex -p
+// > Input file : inFile.hex -> Output file : out.hex
+// > IN> CONFIGURATOR [Fields: 2] Format : little-endian
+// > MHZ - INT32 [value: 8000000]
+// > BAUD - INT32 [value: 115200]
+// hexConfig.exe -i inFile.hex -o outFile9600.hex -v --BAUD=9600
+// > Input file : inFile.hex -> Output file : outFile9600.hex
+// > IN> CONFIGURATOR [Fields: 2] Format : little-endian
+// > MHZ - INT32 [value: 8000000]
+// > BAUD - INT32 [value: 115200]
+// > Fields change: 1
+// > OUT> CONFIGURATOR [Fields: 2] Format : little-endian
+// > MHZ - INT32 [value: 8000000]
+// > BAUD - INT32 [value: 9600]
 // > Write Hex File outFile9600.hex...
 
- 
+ * Для компиляции необходимо:
+ apt-get install libpopt-dev
  
  */
 
@@ -183,9 +198,8 @@ char * getOutDir(TConfigurator * pConfigurator, char * dirOption) {
     int len;
     char * dirOptionPart;
     char * FieldValue;
-    static char result[100];
+    static char result[100] = "";
 
-    sprintf(result, "");
 
     if ((pConfigurator != NULL)&&(dirOption != NULL)) {
         for (i = 1; 1; i++) {
@@ -371,8 +385,8 @@ int hexConfigurator(int argc, char **argv) {
 
             // если задана опция целевой директории
             if (strlen(options.outDir) > 0) {
-                printf("\n outDir = %s \n", options.outDir);
-                printf("\n getOutDir = %p \n", getOutDir(c, options.outDir));
+                //printf("\n outDir = %s \n", options.outDir);
+                //printf("\n getOutDir = %p \n", getOutDir(c, options.outDir));
                 
                 snprintf(outDir, sizeof (outDir), "%s", getOutDir(c, options.outDir));
                 if (strlen(outDir) > 0) {
@@ -427,26 +441,13 @@ int hexConfigurator(int argc, char **argv) {
 
 int main(int argc, char **argv) {
 
-    typedef union {
-        unsigned int iValue;
-        unsigned char *pChar;
-        unsigned char bValue;
-        unsigned short wValue;
-        float fValue;
-        unsigned char b[4];
-    } Values;
-
     int result;
 
     //...
     result = hexConfigurator(argc, argv);
     
     //...
-    exit(result);
     /*    
-        TConfiguratorField c = {"VERSION", CONF_FD_PCHAR, {.pChar = "V1.101"}};
-        Values vv = {.pChar = "qweqweqwe"};
-    
         // Пример задания полей конфигуратора:
         const TConfigurator Configurator = {CONFIGURATOR_KEY, CONF_FD_COUNT, CONF_FORMAT_LE, CONF_SIZEOFPOINTER,
         {

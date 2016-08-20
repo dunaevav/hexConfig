@@ -1,0 +1,78 @@
+/* 
+ * File:   Configurator.h
+ * Author: Dunaev
+ *
+ * Created on 1 Август 2016 г., 14:29
+ */
+
+#ifndef CONFIGURATOR_H
+#define	CONFIGURATOR_H
+
+// можно использовать аттрибут __packed__  как альтернатива последовательности: #pragma pack(push, 1)... #pragma pack(pop)
+#pragma pack(push, 1)  //Использовать "#pragma pack(1)", если pack(push, 1) не потдерживается
+
+#define CONF_FD_INT    0
+#define CONF_FD_FLOAT  1
+#define CONF_FORMAT_LE 0
+#define CONF_FORMAT_BE 1
+#define CONF_RESERV    0
+
+#define CONFIGURATOR_KEY       "CONFIGURATOR" // ключ поиска структуры конфигуратора.
+
+typedef struct /*__attribute__((__packed__))*/ {
+    char fieldID[11]; // Идентификатор поля конфигурации: "CONFIGURATOR"
+    unsigned char fieldType; // тип поля конфигурации. 2 - байт, 3 - short, 0 - int, 1 - float
+    union //по стандарту, инициализация происходит по формату первого элемента в объединении.
+    {
+        unsigned int iValue; // поле unsigned int
+        unsigned char bValue; // байтовое поле
+        unsigned short wValue; // поле unsigned short
+        float fValue; // поле float
+    } Values;
+}
+TConfiguratorField;
+
+typedef struct /*__attribute__((__packed__))*/ {
+    char ConfiguratorID[13];   // CONFIGURATOR - строковый идентификатор поля конфигурации
+    unsigned char fieldCount;  // кол-во полей конфигурации
+    unsigned char fieldFormat; // формат хранения данных. 0 - LE, 1 - BE
+    unsigned char fieldReserv; // Резерв
+    TConfiguratorField Fields[10];
+}
+TConfigurator;
+
+#pragma pack(pop)
+
+// Пример:
+// const TConfigurator Configurator = {CONFIGURATOR_KEY, 2, CONF_FORMAT_LE, CONF_RESERV, 
+//  "MHZ",  CONF_FD_INT, 8000000,  // Константа частоты тактирования
+//  "BAUD", CONF_FD_INT, 115200    // Константа скорости порта 
+// };
+// Использование в программе:
+//#define UART_ID 1    // индекс параметра в структуре конфигуратора
+//InitUART(Configurator.Fields[UART_ID].Values.iValue); // настройка требуемой скорости порта.
+
+// Полученный hex-файл можно модифицировать задавая требуемые параметры:
+// hexConfig.exe -i inFile.hex -o outFile9600.hex --BAUD=9600
+// hexConfig.exe -i inFile.hex -o outFile19200.hex --BAUD=19200
+// Другие параметры:
+// hexConfig.exe -i inFile.hex -p
+// > Input file : inFile.hex -> Output file : out.hex
+// > IN> CONFIGURATOR [Fields: 2] Format : little-endian
+// > MHZ - INT32 [value: 8000000]
+// > BAUD - INT32 [value: 115200]
+// hexConfig.exe -i inFile.hex -o outFile9600.hex -v --BAUD=9600
+// > Input file : inFile.hex -> Output file : outFile9600.hex
+// > IN> CONFIGURATOR [Fields: 2] Format : little-endian
+// > MHZ - INT32 [value: 8000000]
+// > BAUD - INT32 [value: 115200]
+// > Fields change: 1
+// > OUT> CONFIGURATOR [Fields: 2] Format : little-endian
+// > MHZ - INT32 [value: 8000000]
+// > BAUD - INT32 [value: 9600]
+// > Write Hex File outFile9600.hex...
+
+
+
+#endif	/* CONFIGURATOR_H */
+

@@ -32,20 +32,6 @@
 // hexConfig.exe -i inFile.hex -o outFile9600.hex --BAUD=9600
 // hexConfig.exe -i inFile.hex -o outFile19200.hex --BAUD=19200
 // Другие параметры:
-// hexConfig.exe -i inFile.hex -p
-// > Input file : inFile.hex -> Output file : out.hex
-// > IN> CONFIGURATOR [Fields: 2] Format : little-endian
-// > MHZ - INT32 [value: 8000000]
-// > BAUD - INT32 [value: 115200]
-// hexConfig.exe -i inFile.hex -o outFile9600.hex -v --BAUD=9600
-// > Input file : inFile.hex -> Output file : outFile9600.hex
-// > IN> CONFIGURATOR [Fields: 2] Format : little-endian
-// > MHZ - INT32 [value: 8000000]
-// > BAUD - INT32 [value: 115200]
-// > Fields change: 1
-// > OUT> CONFIGURATOR [Fields: 2] Format : little-endian
-// > MHZ - INT32 [value: 8000000]
-// > BAUD - INT32 [value: 9600]
 // > Write Hex File outFile9600.hex...
 
  

@@ -1,0 +1,27 @@
+Dependencies for Project 'hConfTest', Target 'Target 1': (DO NOT MODIFY !)
+F (.\main.c)(0x57AC2FF3)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I.\inc-I D:\Dunaev\Source.other\hex.configurator\test.keil.32LE\RTE-I C:\Keil_v5_ARM\ARM\PACK\Keil\MDR1986BExx\1.4\Libraries\CMSIS\CM3\DeviceSupport\MDR32F9Qx\inc-I C:\Keil_v5_ARM\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DUSE_MDR32F9Q1_Rev1-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+I (C:\Keil_v5_ARM\ARM\ARMCC\include\stdio.h)(0x55AF0402)
+I (..\Configurator.h)(0x57AC1770)
+F (.\system_1986BE9x.c)(0x5674E92C)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I.\inc-I D:\Dunaev\Source.other\hex.configurator\test.keil.32LE\RTE-I C:\Keil_v5_ARM\ARM\PACK\Keil\MDR1986BExx\1.4\Libraries\CMSIS\CM3\DeviceSupport\MDR32F9Qx\inc-I C:\Keil_v5_ARM\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DUSE_MDR32F9Q1_Rev1-o .\objects\system_1986be9x.o --omf_browse .\objects\system_1986be9x.crf --depend .\objects\system_1986be9x.d)
+I (.\inc\1986BE91.h)(0x57032649)
+I (.\inc\1986be91_can.h)(0x5674E92D)
+I (.\inc\cm3_macro.h)(0x5674E92D)
+I (.\inc\1986be91_usb.h)(0x5674E92D)
+I (.\inc\1986be91_eeprom.h)(0x5674E92D)
+I (.\inc\1986be91_rst_clk.h)(0x5674E92D)
+I (.\inc\1986be91_dma.h)(0x5674E92D)
+I (.\inc\1986be91_uart.h)(0x5674E92D)
+I (.\inc\1986be91_spi.h)(0x5674E92D)
+I (.\inc\1986be91_i2c.h)(0x5674E92D)
+I (.\inc\1986be91_power.h)(0x5674E92D)
+I (.\inc\1986be91_wwdg.h)(0x5674E92D)
+I (.\inc\1986be91_iwdg.h)(0x5674E92D)
+I (.\inc\1986be91_timer.h)(0x5674E92D)
+I (.\inc\1986be91_adc.h)(0x5674E92D)
+I (.\inc\1986be91_dac.h)(0x5674E92D)
+I (.\inc\1986be91_comp.h)(0x5674E92D)
+I (.\inc\1986be91_port.h)(0x5674E92D)
+I (.\inc\1986be91_bkp.h)(0x5674E92D)
+I (.\inc\1986be91_ext_bus_cntrl.h)(0x5674E92D)
+I (.\inc\1986be91_sys.h)(0x5674E92D)
+F (.\startup_1986be9x.s)(0x4CF5D371)(--cpu Cortex-M3 -g --apcs=interwork -I D:\Dunaev\Source.other\hex.configurator\test.keil.32LE\RTE-I C:\Keil_v5_ARM\ARM\PACK\Keil\MDR1986BExx\1.4\Libraries\CMSIS\CM3\DeviceSupport\MDR32F9Qx\inc-I C:\Keil_v5_ARM\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 516" --pd "USE_MDR32F9Q1_Rev1 SETA 1"--list .\listings\startup_1986be9x.lst --xref -o .\objects\startup_1986be9x.o --depend .\objects\startup_1986be9x.d)

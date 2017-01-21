@@ -1,0 +1,219 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        08/11/2016  17:27:29  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\TOOLS\KEIL_X51_V5\C51\BIN\BL51.EXE START_AD.obj, main.obj TO hexConfText RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL WITH FLOATING POINT ARITHMETIC
+
+
+INPUT MODULES INCLUDED:
+  START_AD.obj (?C_STARTUP)
+  main.obj (MAIN)
+  C:\TOOLS\KEIL_X51_V5\C51\LIB\C51FPS.LIB (PRINTF)
+  C:\TOOLS\KEIL_X51_V5\C51\LIB\C51FPS.LIB (?C?FPROUND)
+  C:\TOOLS\KEIL_X51_V5\C51\LIB\C51FPS.LIB (?C?FPCONVERT)
+  C:\TOOLS\KEIL_X51_V5\C51\LIB\C51FPS.LIB (?C?FPADD)
+  C:\TOOLS\KEIL_X51_V5\C51\LIB\C51FPS.LIB (?C?FPMUL)
+  C:\TOOLS\KEIL_X51_V5\C51\LIB\C51FPS.LIB (?C?FPDIV)
+  C:\TOOLS\KEIL_X51_V5\C51\LIB\C51FPS.LIB (?C?FTNPWR)
+  C:\TOOLS\KEIL_X51_V5\C51\LIB\C51FPS.LIB (?C?FPGETOPN)
+  C:\TOOLS\KEIL_X51_V5\C51\LIB\C51S.LIB (?C?CLDPTR)
+  C:\TOOLS\KEIL_X51_V5\C51\LIB\C51S.LIB (?C?CLDOPTR)
+  C:\TOOLS\KEIL_X51_V5\C51\LIB\C51S.LIB (?C?CSTPTR)
+  C:\TOOLS\KEIL_X51_V5\C51\LIB\C51S.LIB (?C?LLDCODE)
+  C:\TOOLS\KEIL_X51_V5\C51\LIB\C51S.LIB (?C?PLDIIDATA)
+  C:\TOOLS\KEIL_X51_V5\C51\LIB\C51S.LIB (?C?CCASE)
+  C:\TOOLS\KEIL_X51_V5\C51\LIB\C51S.LIB (PUTCHAR)
+
+
+LINK MAP OF MODULE:  hexConfText (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+                    0008H     0018H                  *** GAP ***
+            BIT     0020H.0   0001H.1   UNIT         _BIT_GROUP_
+                    0021H.1   0000H.7                *** GAP ***
+            DATA    0022H     001CH     UNIT         _DATA_GROUP_
+            IDATA   003EH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0528H     UNIT         ?C?LIB_CODE
+            CODE    052BH     046FH     UNIT         ?PR?PRINTF?PRINTF
+            CODE    099AH     010CH     UNIT         ?CO?MAIN
+            CODE    0AA6H     00ADH     UNIT         ?PR?MAIN?MAIN
+            CODE    0B53H     0027H     UNIT         ?PR?PUTCHAR?PUTCHAR
+            CODE    0B7AH     000FH     UNIT         ?C_C51STARTUP
+            CODE    0B89H     000DH     UNIT         ?PR?_INITUART?MAIN
+
+
+
+OVERLAY MAP OF MODULE:   hexConfText (?C_STARTUP)
+
+
+SEGMENT                           BIT_GROUP          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH     START    LENGTH
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/11/2016  17:27:29  PAGE 2
+
+
+------------------------------------------------------------------
+?C_C51STARTUP                  -----    -----      -----    -----
+  +--> ?PR?MAIN?MAIN
+
+?PR?MAIN?MAIN                  -----    -----      -----    -----
+  +--> ?CO?MAIN
+  +--> ?PR?_INITUART?MAIN
+  +--> ?PR?PRINTF?PRINTF
+
+?PR?_INITUART?MAIN             -----    -----      -----    -----
+  +--> ?CO?MAIN
+  +--> ?PR?PRINTF?PRINTF
+
+?PR?PRINTF?PRINTF              0020H.0  0001H.1    0022H    001CH
+  +--> ?PR?PUTCHAR?PUTCHAR
+
+
+
+SYMBOL TABLE OF MODULE:  hexConfText (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:0B7AH         SEGMENT       ?C_C51STARTUP
+  I:003EH         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00AFH         SYMBOL        CFG8XX
+  N:0000H         SYMBOL        EXSP
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:0B7DH         SYMBOL        IDATALOOP
+  D:00A0H         SYMBOL        P2
+  N:0000H         SYMBOL        PBPSTACK
+  N:0000H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0001H         SYMBOL        PPAGEENABLE
+  D:0081H         SYMBOL        SP
+  D:00B7H         SYMBOL        SPH
+  N:0200H         SYMBOL        STACKSIZE
+  C:0B7AH         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  N:0000H         SYMBOL        XRAMEN
+  N:0600H         SYMBOL        XSTACKSTART
+  N:0000H         SYMBOL        _CFG8XX
+  C:0000H         LINE#         167
+  C:0B7AH         LINE#         180
+  C:0B7CH         LINE#         181
+  C:0B7DH         LINE#         182
+  C:0B7EH         LINE#         183
+  C:0B80H         LINE#         202
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/11/2016  17:27:29  PAGE 3
+
+
+  C:0B83H         LINE#         236
+  C:0B86H         LINE#         248
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:0AA6H         PUBLIC        main
+  C:0B89H         PUBLIC        _InitUART
+  C:0A26H         PUBLIC        Configurator
+  -------         PROC          _INITUART
+  D:0006H         SYMBOL        baud
+  C:0B89H         LINE#         30
+  C:0B89H         LINE#         31
+  C:0B89H         LINE#         32
+  -------         ENDPROC       _INITUART
+  -------         PROC          MAIN
+  C:0AA6H         LINE#         35
+  C:0AA6H         LINE#         36
+  C:0AA6H         LINE#         37
+  C:0AAFH         LINE#         38
+  C:0ACBH         LINE#         39
+  C:0AE7H         LINE#         40
+  C:0AFEH         LINE#         41
+  C:0B0EH         LINE#         42
+  C:0B25H         LINE#         43
+  C:0B3CH         LINE#         44
+  C:0B51H         LINE#         45
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+
+  -------         MODULE        PRINTF
+  D:0022H         PUBLIC        ?_PRINTF?BYTE
+  D:0022H         PUBLIC        ?_SPRINTF?BYTE
+  C:058DH         PUBLIC        _PRINTF
+  C:0587H         PUBLIC        _SPRINTF
+  -------         ENDMOD        PRINTF
+
+  -------         MODULE        ?C?FPROUND
+  C:0003H         PUBLIC        ?C?FPROUND
+  -------         ENDMOD        ?C?FPROUND
+
+  -------         MODULE        ?C?FPCONVERT
+  C:0032H         PUBLIC        ?C?FPCONVERT
+  -------         ENDMOD        ?C?FPCONVERT
+
+  -------         MODULE        ?C?FPADD
+  C:013CH         PUBLIC        ?C?FPADD
+  C:0138H         PUBLIC        ?C?FPSUB
+  -------         ENDMOD        ?C?FPADD
+
+  -------         MODULE        ?C?FPMUL
+  C:022DH         PUBLIC        ?C?FPMUL
+  -------         ENDMOD        ?C?FPMUL
+
+  -------         MODULE        ?C?FPDIV
+  C:0336H         PUBLIC        ?C?FPDIV
+  -------         ENDMOD        ?C?FPDIV
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/11/2016  17:27:29  PAGE 4
+
+
+
+  -------         MODULE        ?C?FTNPWR
+  C:0403H         PUBLIC        ?C?FTNPWR
+  -------         ENDMOD        ?C?FTNPWR
+
+  -------         MODULE        ?C?CLDPTR
+  C:048DH         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+  -------         MODULE        ?C?CLDOPTR
+  C:04A6H         PUBLIC        ?C?CLDOPTR
+  -------         ENDMOD        ?C?CLDOPTR
+
+  -------         MODULE        ?C?CSTPTR
+  C:04D3H         PUBLIC        ?C?CSTPTR
+  -------         ENDMOD        ?C?CSTPTR
+
+  -------         MODULE        ?C?LLDCODE
+  C:04E5H         PUBLIC        ?C?LLDCODE
+  -------         ENDMOD        ?C?LLDCODE
+
+  -------         MODULE        ?C?PLDIIDATA
+  C:04F5H         PUBLIC        ?C?PLDIIDATA
+  -------         ENDMOD        ?C?PLDIIDATA
+
+  -------         MODULE        ?C?CCASE
+  C:0505H         PUBLIC        ?C?CCASE
+  -------         ENDMOD        ?C?CCASE
+
+  -------         MODULE        PUTCHAR
+  C:0B53H         PUBLIC        _PUTCHAR
+  -------         ENDMOD        PUTCHAR
+
+Program Size: data=38.1 xdata=0 code=2966
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -48,8 +48,7 @@
 // > BAUD - INT32 [value: 9600]
 // > Write Hex File outFile9600.hex...
 
- * Для компиляции необходимо:
- apt-get install libpopt-dev
+ 
  
  */
 
@@ -198,8 +197,9 @@ char * getOutDir(TConfigurator * pConfigurator, char * dirOption) {
     int len;
     char * dirOptionPart;
     char * FieldValue;
-    static char result[100] = "";
+    static char result[100];
 
+    sprintf(result, "");
 
     if ((pConfigurator != NULL)&&(dirOption != NULL)) {
         for (i = 1; 1; i++) {
@@ -323,12 +323,14 @@ void userWriteParam(TConfigurator * pConfigurator, int index, TConfiguratorField
     }
     if ((pConfigurator->Fields[index].fieldType == CONF_FD_INT16)) {
         if (pConfigurator->fieldFormat != CONF_FORMAT_LE)
-            pConfigurator->Fields[index].Values.wValue = xENDIAN16(pConfigurator->Fields[index].Values.wValue);
+            pConfigurator->Fields[index].Values.wValue = xENDIAN16(FieldValues[index].Values.wValue);
         else
             pConfigurator->Fields[index].Values.wValue = FieldValues[index].Values.wValue;
     }
     if ((pConfigurator->Fields[index].fieldType == CONF_FD_BYTE)) {
-        pConfigurator->Fields[index].Values.b[0] = pConfigurator->Fields[index].Values.iValue & 255;
+        pConfigurator->Fields[index].Values.b[0] = FieldValues[index].Values.iValue & 255;
+    //printf("\n... b = %d \n", FieldValues[index].Values.iValue);
+        
     }
     if ((pConfigurator->Fields[index].fieldType == CONF_FD_PCHAR)) { // проверка на допустимый размер. Новое значение не может превышать размер старой строки!
         i = strlen(getFieldStrValue(pConfigurator, index));
@@ -441,13 +443,26 @@ int hexConfigurator(int argc, char **argv) {
 
 int main(int argc, char **argv) {
 
+    typedef union {
+        unsigned int iValue;
+        unsigned char *pChar;
+        unsigned char bValue;
+        unsigned short wValue;
+        float fValue;
+        unsigned char b[4];
+    } Values;
+
     int result;
 
     //...
     result = hexConfigurator(argc, argv);
     
     //...
+    exit(result);
     /*    
+        TConfiguratorField c = {"VERSION", CONF_FD_PCHAR, {.pChar = "V1.101"}};
+        Values vv = {.pChar = "qweqweqwe"};
+    
         // Пример задания полей конфигуратора:
         const TConfigurator Configurator = {CONFIGURATOR_KEY, CONF_FD_COUNT, CONF_FORMAT_LE, CONF_SIZEOFPOINTER,
         {

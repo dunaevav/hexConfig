@@ -1,0 +1,201 @@
+
+
+
+
+0000000FA0: 00 00 00 00 43 4F 4E 46 ¦ 49 47 55 52 41 54 4F 52      CONFIGURATOR
+0000000FB0: 00 07 00 04 56 45 52 53 ¦ 49 4F 4E 00 00 00 00 04   • ¦VERSION    ¦
+0000000FC0: 30 10 00 08 44 41 54 45 ¦ 00 00 00 00 00 00 00 04  0> •DATE       ¦
+0000000FD0: 38 10 00 08 42 41 55 44 ¦ 00 00 00 00 00 00 00 00  8> •BAUD
+0000000FE0: 00 C2 01 00 44 45 5F 50 ¦ 49 4E 00 00 00 00 00 03   ВO DE_PIN     ¦
+0000000FF0: 0A 00 00 00 41 44 43 5F ¦ 4B 30 00 00 00 00 00 01  0   ADC_K0     O
+0000001000: 00 00 00 00 41 44 43 5F ¦ 4B 31 00 00 00 00 00 01      ADC_K1     O
+0000001010: 2E 90 A0 3C 50 4F 52 54 ¦ 00 00 00 00 00 00 00 02  .? <PORT       O
+0000001020: AA 55 00 00 3A 74 74 00 ¦ 3A 74 74 00 3A 74 74 00  ЄU  :tt :tt :tt
+0000001030: 56 31 2E 31 30 31 00 00 ¦ 41 75 67 20 31 31 20 32  V1.101  Aug 11 2
+0000001040: 30 31 36 00 64 10 00 08 ¦ 00 00 00 20 10 00 00 00  016 d> •    >
+
+
+
+#include <stdio.h>
+
+#define	CONF_FD_COUNT 7
+#include "..\Configurator.h"
+
+const TConfigurator Configurator = {CONFIGURATOR_KEY, CONF_FD_COUNT, CONF_FORMAT_LE, CONF_SIZEOFPOINTER,
+		{ // C/C++: [C99 Mode]
+			{"VERSION", CONF_FD_PCHAR, {.pChar = "V1.101"}}, //0:
+			{"DATE",    CONF_FD_PCHAR, {.pChar = __DATE__}}, //1:
+			{"BAUD",    CONF_FD_INT32, 115200},              //2: 
+			{"DE_PIN",  CONF_FD_BYTE,  {.bValue = 10}},      //3:
+			{"ADC_K0",  CONF_FD_FLOAT, {.fValue = 0}},       //4:
+			{"ADC_K1",  CONF_FD_FLOAT, {.fValue = 0.0196}},  //5:
+			{"PORT",    CONF_FD_INT16, {.wValue = 0x55AA}}   //6:
+    }};
+
+void InitUART(int baud)
+{
+	printf("baud=%d\n", baud);
+}
+
+int main (void)
+{
+	InitUART(Configurator.Fields[2].Values.iValue);
+	printf("VERSION.... %s\n", Configurator.Fields[0].Values.pChar);
+	printf("DATE....... %s\n", Configurator.Fields[1].Values.pChar);
+	printf("BAUD....... %d\n", Configurator.Fields[2].Values.iValue);
+	printf("DE_PIN..... %d\n", Configurator.Fields[3].Values.bValue);
+	printf("ADC_K0..... %f\n", Configurator.Fields[4].Values.fValue);
+	printf("ADC_K1..... %f\n", Configurator.Fields[5].Values.fValue);
+	printf("PORT....... %x\n", Configurator.Fields[6].Values.wValue);
+	while (1);
+}
+
+
+
+unsigned int getConfiguratorValue(const char * fieldName, unsigned int defaultValue)
+{
+	unsigned char i;
+	for (i = 0; i < Configurator.fieldCount; i++)
+	 {
+		if (strcmp (Configurator.Fields[i].fieldID, fieldName) == 0) 
+			return Configurator.Fields[i].Values.iValue;
+	 }
+	
+	return defaultValue;
+}
+
+
+
+D:\...ev\Source.other\hex.configurator>hexConfig.exe -i h.hex -p
+
+Входной файл : 'h.hex' -> Файл результата : 'out.hex'
+Вход> CONFIGURATOR [Кол-во полей: 7].  Формат хранения : little-endian
+VERSION - STRING [значение: V1.101]
+DATE - STRING [значение: Aug 11 2016]
+BAUD - INT32 [значение: 115200]
+DE_PIN - BYTE [значение: 10]
+ADC_K0 - FLOAT [значение: 0.000000]
+ADC_K1 - FLOAT [значение: 0.019600]
+PORT - INT16 [значение: 21930]
+
+D:\...ev\Source.other\hex.configurator>hexConfig.exe -i h.hex -h
+Входной файл : 'h.hex' -> Файл результата : 'out.hex'
+Usage: hexConfig [-] [--VERSION=STRING] [--DATE=STRING] [--BAUD=INT]
+        [--DE_PIN=INT] [--ADC_K0=FLOAT] [--ADC_K1=FLOAT] [--PORT=INT] ...
+
+D:\...ev\Source.other\hex.configurator> -i h.hex -o hout.hex -b -v --BAUD=9600
+Входной файл : 'h.hex' -> Файл результата : 'hout.hex'
+
+Вход> CONFIGURATOR [Кол-во полей: 7].  Формат хранения : little-endian
+VERSION - STRING [значение: V1.101]
+DATE - STRING [значение: Aug 11 2016]
+BAUD - INT32 [значение: 115200]
+DE_PIN - BYTE [значение: 10]
+ADC_K0 - FLOAT [значение: 0.000000]
+ADC_K1 - FLOAT [значение: 0.019600]
+PORT - INT16 [значение: 21930]
+
+ Кол-во измененных полей: 1
+Выход> CONFIGURATOR [Кол-во полей: 7].  Формат хранения : little-endian
+VERSION - STRING [значение: V1.101]
+DATE - STRING [значение: Aug 11 2016]
+BAUD - INT32 [значение: 9600]
+DE_PIN - BYTE [значение: 10]
+ADC_K0 - FLOAT [значение: 0.000000]
+ADC_K1 - FLOAT [значение: 0.019600]
+PORT - INT16 [значение: 21930]
+
+Результат вычисления CRC: 0x6866 (алгоритм: CRC16.L.0x1021.0xFFFF)
+Размер файла: 8788
+Запись файла 'hout.hex'...
+
+Было:
+:1022100010000000FC0000085422000810000020FC
+:1022200060070000180100081C00000043000000C7
+:10223000F8FFFFFF0C0000000E0000000F00000080
+:102240002E00000000127A000000000000000000D4
+:04225000000000008A
+:04000005080000C12E
+:00000001FF
+
+Стало:
+:1022100010000000FC0000085422000810000020FC
+:1022200060070000180100081C00000043000000C7
+:10223000F8FFFFFF0C0000000E0000000F00000080
+:102240002E00000000127A000000000000000000D4
+:06225000000000006866BA
+:04000005080000C12E
+:00000001FF
+
+
+D:\...ev\Source.other\hex.configurator> -i h.hex -o hout0.hex -b -v
+Входной файл : 'h.hex' -> Файл результата : 'hout0.hex'
+
+Вход> CONFIGURATOR [Кол-во полей: 7].  Формат хранения : little-endian
+VERSION - STRING [значение: V1.101]
+DATE - STRING [значение: Aug 11 2016]
+BAUD - INT32 [значение: 115200]
+DE_PIN - BYTE [значение: 10]
+ADC_K0 - FLOAT [значение: 0.000000]
+ADC_K1 - FLOAT [значение: 0.019600]
+PORT - INT16 [значение: 21930]
+
+ Кол-во измененных полей: 0
+Выход> CONFIGURATOR [Кол-во полей: 7].  Формат хранения : little-endian
+VERSION - STRING [значение: V1.101]
+DATE - STRING [значение: Aug 11 2016]
+BAUD - INT32 [значение: 115200]
+DE_PIN - BYTE [значение: 10]
+ADC_K0 - FLOAT [значение: 0.000000]
+ADC_K1 - FLOAT [значение: 0.019600]
+PORT - INT16 [значение: 21930]
+
+Результат вычисления CRC: 0xE0C5 (алгоритм: CRC16.L.0x1021.0xFFFF)
+Размер файла: 8788
+Запись файла 'hout0.hex'...
+
+
+:10223000F8FFFFFF0C0000000E0000000F00000080
+:102240002E00000000127A000000000000000000D4
+:0622500000000000E0C5E3
+:04000005080000C12E
+:00000001FF
+
+
+D:\...ev\Source.other\hex.configurator>Config.exe -i hout0.hex -o hout1.hex -b
+Входной файл : 'hout0.hex' -> Файл результата : 'hout1.hex'
+
+Результат вычисления CRC равен 0! Файл уже содержит CRC код. (используйте -r)
+Для принудительной записи 0 в конец файла используйте --crc-force или -f
+
+
+D:\...ev\Source.other\hex.configurator> --out-dir=VERSION+" "+DATE makefile -v
+Входной файл : 'h.hex' -> Файл результата : 'hout0.hex'
+
+Вход> CONFIGURATOR [Кол-во полей: 7].  Формат хранения : little-endian
+VERSION - STRING [значение: V1.101]
+DATE - STRING [значение: Aug 11 2016]
+BAUD - INT32 [значение: 115200]
+DE_PIN - BYTE [значение: 10]
+ADC_K0 - FLOAT [значение: 0.000000]
+ADC_K1 - FLOAT [значение: 0.019600]
+PORT - INT16 [значение: 21930]
+
+ Кол-во измененных полей: 0
+Выход> CONFIGURATOR [Кол-во полей: 7].  Формат хранения : little-endian
+VERSION - STRING [значение: V1.101]
+DATE - STRING [значение: Aug 11 2016]
+BAUD - INT32 [значение: 115200]
+DE_PIN - BYTE [значение: 10]
+ADC_K0 - FLOAT [значение: 0.000000]
+ADC_K1 - FLOAT [значение: 0.019600]
+PORT - INT16 [значение: 21930]
+
+Скопированно файлов: 1
+Запись файла 'V1.101 Aug 11 2016/hout0.hex'...
+
+Рузультат:
+D:\....configurator\V1.101 Aug 11 2016>dir
+hout0.hex  makefile
+
+

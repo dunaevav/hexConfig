@@ -1,0 +1,1 @@
+srec_cat hexConfText.hex -intel -o hConfTest.bin -binary

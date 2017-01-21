@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="97">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df root="." name="0">
+      <df name="cmdLine">
+        <in>cmdLine.c</in>
+      </df>
+      <df name="utils">
+        <in>crc16utils.c</in>
+        <in>fileutils.c</in>
+        <in>hexutils.c</in>
+        <in>strutils.c</in>
+      </df>
+      <in>hexConfig.c</in>
+    </df>
     <logicalFolder name="ExternalFiles"
                    displayName="Важные файлы"
                    projectFiles="false"
@@ -10,6 +22,9 @@
     </logicalFolder>
   </logicalFolder>
   <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
   <projectmakefile>makefile</projectmakefile>
   <confs>
     <conf name="Default" type="0">
@@ -26,12 +41,43 @@
           <buildCommand>${MAKE} -f makefile</buildCommand>
           <cleanCommand>${MAKE} -f makefile clean</cleanCommand>
           <executablePath></executablePath>
+          <cTool>
+            <incDir>
+              <pElem>usr/include</pElem>
+            </incDir>
+          </cTool>
         </makeTool>
         <preBuild>
           <preBuildCommandWorkingDir>.</preBuildCommandWorkingDir>
           <preBuildCommand></preBuildCommand>
         </preBuild>
       </makefileType>
+      <item path="cmdLine/cmdLine.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <folder path="0/cmdLine">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+      </folder>
+      <folder path="0/utils">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+      </folder>
+      <item path="hexConfig.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="utils/crc16utils.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="utils/fileutils.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="utils/hexutils.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="utils/strutils.c" ex="false" tool="0" flavor2="0">
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>

@@ -1,0 +1,73 @@
+C51 COMPILER V9.53.0.0   MAIN                                                              08/11/2016 17:27:29 PAGE 1   
+
+
+C51 COMPILER V9.53.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: C:\Tools\Keil_x51_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include <stdio.h>
+   2          
+   3          #define CONF_FD_COUNT 7
+   4          #include "..\Configurator.h"
+*** WARNING C245 IN LINE 10 OF ..\Configurator.h: unknown #pragma, line ignored
+*** WARNING C245 IN LINE 113 OF ..\Configurator.h: unknown #pragma, line ignored
+   5          
+   6          typedef struct {
+   7            TConfiguratorHead  Head;
+   8            TCField_pChar      VERSION;
+   9            TCField_pChar      DATE;
+  10            TCField_i32        BAUD;
+  11            TCField_i8         DE_PIN;
+  12            TCField_float      ADC_K0;
+  13            TCField_float      ADC_K1;
+  14            TCField_wInt       PORT;
+  15          } TMyConfigurator;
+  16          
+  17          
+  18          code const TMyConfigurator Configurator = {
+  19                {CONFIGURATOR_KEY, CONF_FD_COUNT, CONF_FORMAT_BE, CONF_SIZEOFPOINTER},
+  20                {"VERSION", CONF_FD_PCHAR, "V1.101"}, //0:
+  21                {"DATE",    CONF_FD_PCHAR, __DATE__}, //1:
+  22                {"BAUD",    CONF_FD_INT32, 115200},   //2: 
+  23                {"DE_PIN",  CONF_FD_BYTE,  10},       //3:
+  24                {"ADC_K0",  CONF_FD_FLOAT, 0},        //4:
+  25                {"ADC_K1",  CONF_FD_FLOAT, 0.0196},   //5:
+  26                {"PORT",    CONF_FD_INT16, 0x55AA}    //6:
+  27              };
+  28          
+  29          
+  30          void InitUART(int baud)
+  31          {
+  32   1        printf("baud=%d\n", baud);
+  33   1      }
+  34          
+  35          int main (void)
+  36          {
+  37   1        InitUART(Configurator.BAUD.Values.iValue);
+  38   1        printf("VERSION.... %s\n", Configurator.VERSION.Values.pChar);
+  39   1        printf("DATE....... %s\n", Configurator.DATE.Values.pChar);
+  40   1        printf("BAUD....... %d\n", Configurator.BAUD.Values.iValue);
+  41   1        printf("DE_PIN..... %d\n", Configurator.DE_PIN.Values.bValue);
+  42   1        printf("ADC_K0..... %f\n", Configurator.ADC_K0.Values.fValue);
+  43   1        printf("ADC_K1..... %f\n", Configurator.ADC_K1.Values.fValue);
+  44   1        printf("PORT....... %x\n", Configurator.PORT.Values.wValue);
+  45   1        while (1);
+  46   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    186    ----
+   CONSTANT SIZE    =    268    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+C51 COMPILER V9.53.0.0   MAIN                                                              08/11/2016 17:27:29 PAGE 2   
+
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  2 WARNING(S),  0 ERROR(S)
